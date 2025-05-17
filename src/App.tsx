@@ -1,39 +1,38 @@
-// App.jsx
-import React, { useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { nanoid } from 'nanoid'
 import AddTaskForm from './components/AddTaskForm'
-import TodoItem from './components/TodoItem'
-import Modal from './components/Modal'
+import TodoItem    from './components/TodoItem'
+import Modal       from './components/Modal'
 
-const INITIAL_TASK_LIST = [
-    { id: nanoid(), name: 'Eat', completed: false },
-    { id: nanoid(), name: 'Sleep', completed: false },
+interface ITask {
+    id: string
+    name: string
+    completed: boolean
+}
+
+const INITIAL_TASK_LIST: ITask[] = [
+    { id: nanoid(), name: 'Eat',    completed: false },
+    { id: nanoid(), name: 'Sleep',  completed: false },
     { id: nanoid(), name: 'Repeat', completed: false }
 ]
 
-export default function App() {
-    const [tasks, setTasks] = useState(INITIAL_TASK_LIST)
-    const [isModalOpen, setIsModalOpen] = useState(false)
+export default function App(): ReactElement {
+    const [tasks, setTasks] = useState<ITask[]>(INITIAL_TASK_LIST)
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
-    const addTask = (name) => {
+    const addTask = (name: string): void =>
         setTasks(prev => [...prev, { id: nanoid(), name, completed: false }])
-    }
 
-    const toggleTask = (id) => {
+    const toggleTask = (id: string): void =>
         setTasks(prev =>
-            prev.map(task =>
-                task.id === id ? { ...task, completed: !task.completed } : task
-            )
+            prev.map(t => (t.id === id ? { ...t, completed: !t.completed } : t))
         )
-    }
 
-    const deleteTask = (id) => {
-        setTasks(prev => prev.filter(task => task.id !== id))
-    }
+    const deleteTask = (id: string): void =>
+        setTasks(prev => prev.filter(t => t.id !== id))
 
     return (
         <main className="m-4 max-w-lg mx-auto">
-            {/* Open Modal */}
             <div className="mb-4">
                 <button
                     onClick={() => setIsModalOpen(true)}
@@ -43,21 +42,19 @@ export default function App() {
                 </button>
             </div>
 
-            {/* Modal */}
             <Modal
                 headerLabel="New Task"
                 isOpen={isModalOpen}
                 onCloseRequested={() => setIsModalOpen(false)}
             >
                 <AddTaskForm
-                    onNewTask={(name) => {
+                    onNewTask={(name: string) => {
                         addTask(name)
                         setIsModalOpen(false)
                     }}
                 />
             </Modal>
 
-            {/* To-Do List */}
             <section>
                 <h1 className="text-xl font-bold mb-3">To do</h1>
                 <ul className="space-y-2">
