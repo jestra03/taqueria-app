@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { IoMdSettings } from "react-icons/io";
 import { HiMenu, HiX } from "react-icons/hi";
 import logo from "../assets/taqueria-logo.png";
+import logoDm from "../assets/taqueria-logo-darkmode.png";
 
 interface NavBarProps {
   onSettingsClick: () => void;
@@ -44,7 +45,7 @@ const NavBar: React.FC<NavBarProps> = ({ onSettingsClick }) => {
   };
 
   const linkClass =
-      "font-bold text-[var(--color-primary)] hover:text-[var(--color-accent)] transition-colors";
+      "font-bold text-[var(--color-primary)] dark:text-white hover:text-[var(--color-accent)] transition-colors";
 
   return (
       <nav
@@ -53,6 +54,7 @@ const NavBar: React.FC<NavBarProps> = ({ onSettingsClick }) => {
         bg-[var(--color-bg)] dark:bg-gray-800
         pt-4 pb-2
         border-b-2 border-b-[var(--color-primary)]
+        dark:border-b-white
         shadow-[0_4px_0_var(--color-accent)]
         transition-all
       "
@@ -64,9 +66,21 @@ const NavBar: React.FC<NavBarProps> = ({ onSettingsClick }) => {
                 src={logo}
                 alt="Taqueria Logo"
                 className="
-              h-16 w-auto
+              h-20 w-auto
               transform transition-transform duration-200
               hover:scale-110 active:scale-100
+              dark:hidden
+            "
+            />
+            <img
+                src={logoDm}
+                alt="Taqueria Logo"
+                className="
+              h-20 w-auto
+              transform transition-transform duration-200
+              hover:scale-110 active:scale-100
+              hidden
+              dark:block
             "
             />
           </Link>
@@ -122,10 +136,10 @@ const NavBar: React.FC<NavBarProps> = ({ onSettingsClick }) => {
             Catering Services
           </button>
           <button
-              onClick={() => { navigate("/build-order"); setIsOpen(false); }}
+              onClick={() => { navigate("/menu"); setIsOpen(false); }}
               className={`block w-full text-left px-4 py-2 ${linkClass}`}
           >
-            Order Now
+            Menu
           </button>
         </div>
       </nav>
