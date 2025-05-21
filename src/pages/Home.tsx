@@ -57,7 +57,7 @@ const Home: React.FC = () => {
                   See Menu
                 </button>
               </Link>
-              <p className="mt-5">{aboutSection}</p>
+              <p className="mt-5 text-justify md:text-left">{aboutSection}</p>
             </div>
             <div className="w-full">
               <iframe
@@ -123,7 +123,7 @@ const Home: React.FC = () => {
               id="about-section"
               className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center md:items-start"
           >
-            <div className="space-y-6 text-center md:text-left">
+            <div className="space-y-6 text-justify md:text-left">
               <h2 className="text-3xl font-bold">About Us</h2>
               <img
                   src={foodtruck}
