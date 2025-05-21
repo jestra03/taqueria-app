@@ -6,7 +6,7 @@ import ImageCarousel from "../components/ImageCarousel";
 import GoogleReview from "../components/GoogleReview";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 import { aboutSection, welcomeMessage, shortAbout } from "../data/templateInfo";
-import foodtruck from "../assets/food-truck-img.png";
+import foodTruck from "../assets/food-truck-img.png";
 import logo from "../assets/taqueria-logo.png";
 import logoDm from "../assets/taqueria-logo-darkmode.png";
 import food1 from "../assets/food1.jpg";
@@ -126,7 +126,7 @@ const Home: React.FC = () => {
             <div className="space-y-6 text-justify md:text-left">
               <h2 className="text-3xl font-bold">About Us</h2>
               <img
-                  src={foodtruck}
+                  src={foodTruck}
                   alt="Taqueria food truck"
                   className="w-full rounded-lg shadow-lg mx-auto md:mx-0"
               />
