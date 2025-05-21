@@ -52,7 +52,7 @@ const Home: React.FC = () => {
                 Come by for authentic Mexican foods!
               </h1>
               <p className="text-lg text-gray-600 dark:text-gray-300">{welcomeMessage}</p>
-              <Link to="/build-order">
+              <Link to="/menu">
                 <button className="bg-red-600 hover:bg-red-700 text-white font-medium px-6 py-3 rounded-full transition-colors">
                   See Menu
                 </button>
@@ -109,7 +109,7 @@ const Home: React.FC = () => {
                 CALL AND MAKE A RESERVATION at (805) 806-5911
               </h3>
               <div className="text-center md:text-left">
-                <Link to="/catering-services">
+                <Link to="/catering">
                 <span className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
                   BOOK NOW ONLINE
                 </span>

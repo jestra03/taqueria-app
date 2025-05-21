@@ -88,8 +88,8 @@ const NavBar: React.FC<NavBarProps> = ({ onSettingsClick }) => {
           <div className="flex space-x-10">
             <Link to="/" className={linkClass}>Home</Link>
             <a href="#about-section" onClick={handleAbout} className={linkClass}>About</a>
-            <Link to="/catering-services" className={linkClass}>Catering Services</Link>
-            <Link to="/menur" className={linkClass}>Menu</Link>
+            <Link to="/catering" className={linkClass}>Catering Services</Link>
+            <Link to="/menu" className={linkClass}>Menu</Link>
           </div>
 
           <button onClick={onSettingsClick} className={linkClass}>
@@ -130,7 +130,7 @@ const NavBar: React.FC<NavBarProps> = ({ onSettingsClick }) => {
             About
           </button>
           <button
-              onClick={() => { navigate("/catering-services"); setIsOpen(false); }}
+              onClick={() => { navigate("/catering"); setIsOpen(false); }}
               className={`block w-full text-left px-4 py-2 ${linkClass}`}
           >
             Catering Services
