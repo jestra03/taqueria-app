@@ -66,7 +66,7 @@ const GoogleReview: React.FC = () => {
 
         {/* Footer */}
         <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700 text-sm">
-          <div className="space-x-2 text-gray-600 dark:text-gray-400">
+          <div className="space-x-2 text-gray-600 dark:text-white">
             <span><b>Food</b>: 5/5</span>
             <span>|</span>
             <span><b>Service</b>: 5/5</span>
@@ -81,7 +81,7 @@ const GoogleReview: React.FC = () => {
             />
             <a
                 href="https://tinyurl.com/taqueria-google-reviews"
-                className="text-blue-600 dark:text-blue-400 hover:underline"
+                className="text-blue-600 dark:text-blue-200 hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
             >

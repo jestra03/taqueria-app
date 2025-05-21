@@ -13,6 +13,7 @@ const Footer: React.FC = () => (
       py-[var(--space-sm)]
       sm:justify-between
       transition-colors
+      p-10
     "
     >
       {/* Social Icons */}
