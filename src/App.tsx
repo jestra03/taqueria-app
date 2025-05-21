@@ -1,74 +1,48 @@
-import React, { ReactElement, useState } from 'react'
-import { nanoid } from 'nanoid'
-import AddTaskForm from './components/AddTaskForm'
-import TodoItem    from './components/TodoItem'
-import Modal       from './components/Modal'
+// src/App.tsx
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import Home from "./pages/Home";
+import Modal from "./components/Modal";
 
-interface ITask {
-    id: string
-    name: string
-    completed: boolean
-}
+const App: React.FC = () => {
+    const [darkMode, setDarkMode] = useState(false);
+    const [settingsOpen, setSettingsOpen] = useState(false);
 
-const INITIAL_TASK_LIST: ITask[] = [
-    { id: nanoid(), name: 'Eat',    completed: false },
-    { id: nanoid(), name: 'Sleep',  completed: false },
-    { id: nanoid(), name: 'Repeat', completed: false }
-]
-
-export default function App(): ReactElement {
-    const [tasks, setTasks] = useState<ITask[]>(INITIAL_TASK_LIST)
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-
-    const addTask = (name: string): void =>
-        setTasks(prev => [...prev, { id: nanoid(), name, completed: false }])
-
-    const toggleTask = (id: string): void =>
-        setTasks(prev =>
-            prev.map(t => (t.id === id ? { ...t, completed: !t.completed } : t))
-        )
-
-    const deleteTask = (id: string): void =>
-        setTasks(prev => prev.filter(t => t.id !== id))
+    useEffect(() => {
+        document.documentElement.classList.toggle("dark", darkMode);
+    }, [darkMode]);
 
     return (
-        <main className="m-4 max-w-lg mx-auto">
-            <div className="mb-4">
-                <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg shadow"
+        <Router>
+            <div className="flex flex-col min-h-screen">
+                {/* Pass the callback here */}
+                <NavBar onSettingsClick={() => setSettingsOpen(true)} />
+
+                <div className="flex-grow">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                    </Routes>
+                </div>
+
+                <Modal
+                    headerLabel="Settings"
+                    isOpen={settingsOpen}
+                    onCloseRequested={() => setSettingsOpen(false)}
                 >
-                    New Task
-                </button>
-            </div>
-
-            <Modal
-                headerLabel="New Task"
-                isOpen={isModalOpen}
-                onCloseRequested={() => setIsModalOpen(false)}
-            >
-                <AddTaskForm
-                    onNewTask={(name: string) => {
-                        addTask(name)
-                        setIsModalOpen(false)
-                    }}
-                />
-            </Modal>
-
-            <section>
-                <h1 className="text-xl font-bold mb-3">To do</h1>
-                <ul className="space-y-2">
-                    {tasks.map(task => (
-                        <TodoItem
-                            key={task.id}
-                            name={task.name}
-                            completed={task.completed}
-                            onToggle={() => toggleTask(task.id)}
-                            onDelete={() => deleteTask(task.id)}
+                    <label className="flex items-center space-x-2 p-4">
+                        <input
+                            type="checkbox"
+                            checked={darkMode}
+                            onChange={() => setDarkMode((v) => !v)}
+                            className="h-5 w-5 rounded border-gray-300 focus:ring-2 focus:ring-[var(--color-accent)]"
                         />
-                    ))}
-                </ul>
-            </section>
-        </main>
-    )
-}
+                        <span className="text-gray-900 dark:text-gray-100">Dark Mode</span>
+                    </label>
+                </Modal>
+            </div>
+        </Router>
+    );
+};
+
+export default App;
