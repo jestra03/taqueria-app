@@ -10,9 +10,17 @@
   --color-success-dark: #a8efab;
   --color-error-dark: #ae5555;
 
+  --color-form-bg: #ffffff;
+  --color-form-bg-dark: #1E2933;
+  --color-primary-dark: #8BBF8B;
+  --color-bg-dark: #7d93c5;
+
   /* Spacing scale */
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 1.5rem;
   --space-gap: 2.5rem;
+
+  /* Form radius */
+  --radius-lg: 0.75rem;
 }

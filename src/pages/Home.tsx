@@ -4,16 +4,30 @@ import { Link, useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
 import ImageCarousel from "../components/ImageCarousel";
 import GoogleReview from "../components/GoogleReview";
-import { aboutSection, welcomeMessage, shortAbout } from "../data/templateInfo";
+import { useTranslation } from "../i18n/useTranslation";
 import foodTruck from "../assets/food-truck-img.png";
 import logo from "../assets/taqueria-logo.png";
 import logoDm from "../assets/taqueria-logo-darkmode.png";
 import food1 from "../assets/food1.jpg";
 import food2 from "../assets/food2.jpg";
 import food3 from "../assets/food3.jpg";
+import ScrollToTopButton from "../components/ScrollToTopButton.tsx";
+import { scrollToTop } from "../utils/scrollToTop.tsx"
 
 const Home: React.FC = () => {
   const location = useLocation();
+  const heroTitle = useTranslation("heroTitle");
+  const heroSubtitle = useTranslation("heroSubtitle");
+  const seeMenu = useTranslation("seeMenu");
+  const aboutText = useTranslation("aboutSection");
+  const cateringTitle = useTranslation("cateringTitle");
+  const cateringItems = useTranslation("cateringItems"); // expect array
+  const cateringDescription = useTranslation("cateringDescription");
+  const reservationText = useTranslation("reservationText");
+  const bookNow = useTranslation("bookNow");
+  const aboutUsTitle = useTranslation("aboutUsTitle");
+  const shortAbout = useTranslation("shortAbout");
+  const reviewsTitle = useTranslation("reviewsTitle");
 
   // Scroll-to-hash logic
   useEffect(() => {
@@ -31,12 +45,12 @@ const Home: React.FC = () => {
           <img
               src={logo}
               alt="Taqueria Logo"
-              className="h-65 w-auto mx-auto dark:hidden"
+              className="h-40 w-auto mx-auto dark:hidden"
           />
           <img
               src={logoDm}
               alt="Taqueria Logo"
-              className="h-65 w-auto mx-auto hidden dark:block"
+              className="h-40 w-auto mx-auto hidden dark:block"
           />
         </div>
 
@@ -44,16 +58,16 @@ const Home: React.FC = () => {
           {/* Order Online Section */}
           <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center md:items-start">
             <div className="space-y-6 text-center md:text-left">
-              <h1 className="text-3xl font-bold">
-                Come by for authentic Mexican foods!
-              </h1>
-              <p className="text-lg text-gray-600 dark:text-gray-300">{welcomeMessage}</p>
+              <h1 className="text-3xl font-bold">{heroTitle}</h1>
+              <p className="text-lg text-gray-600 dark:text-gray-300">
+                {heroSubtitle}
+              </p>
               <Link to="/menu">
                 <button className="bg-red-600 hover:bg-red-700 text-white font-medium px-6 py-3 rounded-full transition-colors">
-                  See Menu
+                  {seeMenu}
                 </button>
               </Link>
-              <p className="mt-5 text-justify md:text-left">{aboutSection}</p>
+              <p className="mt-5 text-justify md:text-left">{aboutText}</p>
             </div>
             <div className="w-full">
               <iframe
@@ -78,36 +92,29 @@ const Home: React.FC = () => {
             </div>
             <div className="space-y-6">
               <h2 className="text-3xl font-bold text-center md:text-left">
-                We offer Catering Services!
+                {cateringTitle}
               </h2>
               <div className="flex flex-col md:flex-row items-center md:items-start gap-10">
                 <ImageCarousel
-                    images={[
-                      { imageURL: food1 },
-                      { imageURL: food2 },
-                      { imageURL: food3 },
-                    ]}
+                    images={[{ imageURL: food1 }, { imageURL: food2 }, { imageURL: food3 }]}
                     className="w-full md:w-96"
                 />
                 <div className="space-y-4 text-center md:text-left">
                   <ul className="list-disc list-inside space-y-2">
-                    <li>Party Platter (Pickup or Delivery)</li>
-                    <li>Party Service (Staff on Site)</li>
-                    <li>Food Truck Full Service</li>
+                    {(cateringItems as string[]).map((item) => (
+                        <li key={item}>{item}</li>
+                    ))}
                   </ul>
-                  <p>
-                    Our events are customized for your needs! Call our number or
-                    book now on our online form to make a RESERVATION.
-                  </p>
+                  <p>{cateringDescription}</p>
                 </div>
               </div>
               <h3 className="text-xl font-semibold mt-4 text-center md:text-left">
-                CALL AND MAKE A RESERVATION at (805) 806-5911
+                {reservationText}
               </h3>
               <div className="text-center md:text-left">
                 <Link to="/catering">
                 <span className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
-                  BOOK NOW ONLINE
+                  {bookNow}
                 </span>
                 </Link>
               </div>
@@ -120,7 +127,7 @@ const Home: React.FC = () => {
               className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center md:items-start"
           >
             <div className="space-y-6 text-justify md:text-left">
-              <h2 className="text-3xl font-bold">About Us</h2>
+              <h2 className="text-3xl font-bold">{aboutUsTitle}</h2>
               <img
                   src={foodTruck}
                   alt="Taqueria food truck"
@@ -129,12 +136,14 @@ const Home: React.FC = () => {
               <p>{shortAbout}</p>
             </div>
             <div className="space-y-6 text-center md:text-left">
-              <h2 className="text-3xl font-bold">Reviews</h2>
+              <h2 className="text-3xl font-bold">{reviewsTitle}</h2>
               <GoogleReview />
             </div>
           </section>
         </main>
+
         <Footer />
+        <ScrollToTopButton onClick = { scrollToTop }/>
       </div>
   );
 };

@@ -1,6 +1,7 @@
 // src/components/GoogleReview.tsx
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
+import { useTranslation } from "../i18n/useTranslation";
 
 const reviewDate = new Date("2024-02-01");
 
@@ -16,6 +17,7 @@ function calculateTimeAgo(date: Date) {
 }
 
 const GoogleReview: React.FC = () => {
+  const t = useTranslation;
   const stars = Array.from({ length: 5 }).map((_, i) => (
       <AiFillStar key={i} className="inline-block text-yellow-400 h-5 w-5" />
   ));
@@ -33,7 +35,7 @@ const GoogleReview: React.FC = () => {
           <img
               className="h-9 w-9 rounded-full"
               src="https://lh3.googleusercontent.com/a-/ALV-UjXJOlnsoHjjOeSdTnk5c3iXU8GvzwQUkeLb-gCPgeZZVVBqOcHf=w60-h60-p-rp-mo-br100"
-              alt="Reviewer Avatar"
+              alt={t("reviewerAvatarAlt")}
           />
           <div className="flex flex-col text-sm">
             <a
@@ -44,7 +46,9 @@ const GoogleReview: React.FC = () => {
             >
               Amy Languell
             </a>
-            <span className="text-gray-500 dark:text-gray-400">11 reviews · 3 photos</span>
+            <span className="text-gray-500 dark:text-gray-400">
+            {t("reviewsCountPhotos")}
+          </span>
           </div>
         </div>
 
@@ -54,24 +58,17 @@ const GoogleReview: React.FC = () => {
             {stars}
             <span className="font-bold">{calculateTimeAgo(reviewDate)}</span>
           </div>
-          <p className="text-gray-500 dark:text-gray-400">Take out</p>
-          <p className="text-gray-700 dark:text-gray-200">
-            Santiago and Pedro are super nice and always make sure my order is
-            just right. The pastor and asada is so good and not too dry or too
-            fatty like I’ve experienced at other places. Prices are so cheap and
-            you get a ton of meat. And they put grilled pineapple on the pastor
-            tacos which I love!
-          </p>
+          <p className="text-gray-700 dark:text-gray-400">{t("reviewText")}</p>
         </div>
 
         {/* Footer */}
         <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700 text-sm">
           <div className="space-x-2 text-gray-600 dark:text-white">
-            <span><b>Food</b>: 5/5</span>
+            <span><b>{t("ratingFoodLabel")}</b>: 5/5</span>
             <span>|</span>
-            <span><b>Service</b>: 5/5</span>
+            <span><b>{t("ratingServiceLabel")}</b>: 5/5</span>
             <span>|</span>
-            <span><b>Atmosphere</b>: 5/5</span>
+            <span><b>{t("ratingAtmosphereLabel")}</b>: 5/5</span>
           </div>
           <div className="flex items-center space-x-2">
             <img
@@ -85,7 +82,7 @@ const GoogleReview: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
             >
-              See all reviews
+              {t("seeAllReviews")}
             </a>
           </div>
         </div>
