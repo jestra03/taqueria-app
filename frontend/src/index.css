@@ -5,6 +5,13 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+    cursor: pointer;
+}
+
 @layer base {
     html {
         font-family: 'Mukta', sans-serif;

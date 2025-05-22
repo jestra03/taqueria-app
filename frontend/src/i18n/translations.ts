@@ -294,4 +294,20 @@ export const translations = {
         en: "See all reviews",
         es: "Ver todas las reseñas"
     },
+
+    // Nav Bar
+    navHome:     { en: "Home",               es: "Inicio" },
+    navAbout:    { en: "About",              es: "Acerca" },
+    navCatering: { en: "Catering Services",  es: "Servicios de catering" },
+    navMenu:     { en: "Menu",               es: "Menú" },
+
+    // Not Found Page
+    notFoundTitle:   { en: "404 - Not Found",                      es: "404 - No Encontrado" },
+    notFoundMessage: { en: "The page you are looking for does not exist.", es: "La página que buscas no existe." },
+
+    // Go home button
+    goHome: {
+        en: "Go Home",
+        es: "Ir al inicio",
+    },
 };

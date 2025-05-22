@@ -16,9 +16,9 @@ const LanguageToggle: React.FC = () => {
             onClick={() => setLang(nextLang)}
             className="
         fixed bottom-4 left-4 z-50
-        w-12 h-12
+        w-24 h-12
         bg-[var(--color-bg)] dark:bg-[var(--color-bg-dark)]
-        border border-gray-300 dark:border-gray-600
+        border border-gray-800 dark:border-gray-200
         rounded-full
         flex items-center justify-center
         overflow-hidden
@@ -30,17 +30,16 @@ const LanguageToggle: React.FC = () => {
                 svg
                 style={{
                     position: 'absolute',
-                    top: 0,
-                    left: 0,
+                    top: -10,
                     width: '100%',
-                    height: '100%',
-                    opacity: 0.2,
+                    height: 'auto',
+                    opacity: 0.35,
                 }}
             />
 
             {/* Foreground text */}
             <span className="relative text-base font-medium">
-        {lang === 'en' ? 'ES' : 'EN'}
+        {lang === 'en' ? 'En Español' : 'English'}
       </span>
         </button>
     );

@@ -80,26 +80,31 @@ const Home: React.FC = () => {
           </section>
 
           {/* Catering Section */}
-          <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center md:items-start">
+          <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            {/* Video/Trailer */}
             <div>
               <iframe
-                  className="w-full aspect-video rounded-lg shadow-lg mx-auto md:mx-0"
+                  className="w-full aspect-video rounded-lg shadow-lg mx-auto lg:mx-0"
                   src="https://www.youtube.com/embed/Afi9g5e4z7s?si=MIgq-jH1dlxtU0yi"
                   title="Taqueria Trailer"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
               />
             </div>
+
+            {/* Content: carousel + bullets + description */}
             <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-center md:text-left">
+              <h2 className="text-3xl font-bold text-center lg:text-left">
                 {cateringTitle}
               </h2>
-              <div className="flex flex-col md:flex-row items-center md:items-start gap-10">
+
+              <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10">
                 <ImageCarousel
                     images={[{ imageURL: food1 }, { imageURL: food2 }, { imageURL: food3 }]}
-                    className="w-full md:w-96"
+                    className="w-full max-w-md mx-auto lg:w-full"
                 />
-                <div className="space-y-4 text-center md:text-left">
+
+                <div className="space-y-4 text-center lg:text-left">
                   <ul className="list-disc list-inside space-y-2">
                     {(cateringItems as string[]).map((item) => (
                         <li key={item}>{item}</li>
@@ -108,18 +113,21 @@ const Home: React.FC = () => {
                   <p>{cateringDescription}</p>
                 </div>
               </div>
-              <h3 className="text-xl font-semibold mt-4 text-center md:text-left">
+
+              <h3 className="text-xl font-semibold mt-4 text-center lg:text-left">
                 {reservationText}
               </h3>
-              <div className="text-center md:text-left">
+
+              <div className="text-center lg:text-left">
                 <Link to="/catering">
-                <span className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
-                  {bookNow}
-                </span>
+        <span className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
+          {bookNow}
+        </span>
                 </Link>
               </div>
             </div>
           </section>
+
 
           {/* About & Reviews Section */}
           <section

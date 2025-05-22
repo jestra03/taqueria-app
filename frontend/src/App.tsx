@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar";
 import Modal from "./components/Modal";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
+import NotFound from "./pages/NotFound";       // ← import here
 import { LanguageProvider } from "./i18n/LanguageContext";
 import LanguageToggle from "./components/LanguageToggle";
 
@@ -19,7 +20,6 @@ const App: React.FC = () => {
     return (
         <LanguageProvider>
             <Router>
-                {/* Toggle always available */}
                 <LanguageToggle />
 
                 <div className="flex flex-col min-h-screen">
@@ -29,6 +29,8 @@ const App: React.FC = () => {
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/catering" element={<Services />} />
+                            {/* 404 catch-all route */}
+                            <Route path="*" element={<NotFound />} />
                         </Routes>
                     </div>
 

@@ -5,12 +5,15 @@ import { IoMdSettings } from "react-icons/io";
 import { HiMenu, HiX } from "react-icons/hi";
 import logo from "../assets/taqueria-logo.png";
 import logoDm from "../assets/taqueria-logo-darkmode.png";
+import { useTranslation } from "../i18n/useTranslation";
+import { scrollToTop } from "../utils/scrollToTop";
 
 interface NavBarProps {
   onSettingsClick: () => void;
 }
 
 const NavBar: React.FC<NavBarProps> = ({ onSettingsClick }) => {
+  const t = useTranslation;
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -86,10 +89,23 @@ const NavBar: React.FC<NavBarProps> = ({ onSettingsClick }) => {
           </Link>
 
           <div className="flex space-x-10">
-            <Link to="/" className={linkClass}>Home</Link>
-            <a href="#about-section" onClick={handleAbout} className={linkClass}>About</a>
-            <Link to="/catering" className={linkClass}>Catering Services</Link>
-            <Link to="/menu" className={linkClass}>Menu</Link>
+            <button
+                onClick={() => {
+                  if (location.pathname === "/") {
+                    scrollToTop();
+                  } else {
+                    navigate("/");
+                  }
+                  setIsOpen(false);
+                }}
+                className={linkClass}
+            >
+              {t("navHome")}
+            </button>
+
+            <a href="#about-section" onClick={handleAbout} className={linkClass}>{t("navAbout")}</a>
+            <Link to="/catering" className={linkClass}>{t("navCatering")}</Link>
+            <Link to="/menu" className={linkClass}>{t("navMenu")}</Link>
           </div>
 
           <button onClick={onSettingsClick} className={linkClass}>
@@ -118,29 +134,21 @@ const NavBar: React.FC<NavBarProps> = ({ onSettingsClick }) => {
             style={{ maxHeight: isOpen ? "300px" : "0" }}
         >
           <button
-              onClick={() => { navigate("/"); setIsOpen(false); }}
+              onClick={() => {
+                if (location.pathname === "/") {
+                  scrollToTop();
+                } else {
+                  navigate("/");
+                }
+                setIsOpen(false);
+              }}
               className={`block w-full text-left px-4 py-2 ${linkClass}`}
           >
-            Home
+            {t("navHome")}
           </button>
-          <button
-              onClick={(e) => { handleAbout(e); }}
-              className={`block w-full text-left px-4 py-2 ${linkClass}`}
-          >
-            About
-          </button>
-          <button
-              onClick={() => { navigate("/catering"); setIsOpen(false); }}
-              className={`block w-full text-left px-4 py-2 ${linkClass}`}
-          >
-            Catering Services
-          </button>
-          <button
-              onClick={() => { navigate("/menu"); setIsOpen(false); }}
-              className={`block w-full text-left px-4 py-2 ${linkClass}`}
-          >
-            Menu
-          </button>
+          <button onClick={(e) => { handleAbout(e); }} className={`block w-full text-left px-4 py-2 ${linkClass}`}>{t("navAbout")}</button>
+          <button onClick={() => { navigate("/catering"); setIsOpen(false); }} className={`block w-full text-left px-4 py-2 ${linkClass}`}>{t("navCatering")}</button>
+          <button onClick={() => { navigate("/menu"); setIsOpen(false); }} className={`block w-full text-left px-4 py-2 ${linkClass}`}>{t("navMenu")}</button>
         </div>
       </nav>
   );

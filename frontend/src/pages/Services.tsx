@@ -124,7 +124,7 @@ const Services: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-25">
             <div className="max-w-3xl mx-auto py-[var(--space-lg)] px-[var(--space-md)] dark:bg-gray-900">
                 {!formSubmitted && !loading ? (
                     <>

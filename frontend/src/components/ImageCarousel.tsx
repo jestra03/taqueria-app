@@ -60,7 +60,7 @@ const ImageCarousel: React.FC<Props> = ({ images, className = "" }) => {
             </div>
 
             {/* Thumbnails */}
-            <div className="flex space-x-2 mt-3">
+            <div className="flex space-x-2 mt-3 max-w-full overflow-x-auto justify-center">
                 {images.map((img, idx) => (
                     <img
                         key={idx}
