@@ -7,6 +7,8 @@ import React, {
 } from 'react';
 import LoadingSpinner from '../components/LoadingSpinner';
 import Notification from '../components/Notification';
+import ScrollToTopButton from "../components/ScrollToTopButton";
+import { scrollToTop } from "../utils/scrollToTop";
 
 interface FormData {
   name: string;
@@ -537,6 +539,7 @@ const Services: React.FC = () => {
               />
           )}
         </div>
+        <ScrollToTopButton onClick={scrollToTop} />
       </div>
   );
 };

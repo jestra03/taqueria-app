@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
 import ImageCarousel from "../components/ImageCarousel";
 import GoogleReview from "../components/GoogleReview";
-import ScrollToTopButton from "../components/ScrollToTopButton";
 import { aboutSection, welcomeMessage, shortAbout } from "../data/templateInfo";
 import foodTruck from "../assets/food-truck-img.png";
 import logo from "../assets/taqueria-logo.png";
@@ -15,9 +14,6 @@ import food3 from "../assets/food3.jpg";
 
 const Home: React.FC = () => {
   const location = useLocation();
-
-  const scrollToTop = () =>
-      window.scrollTo({ top: 0, behavior: "smooth" });
 
   // Scroll-to-hash logic
   useEffect(() => {
@@ -138,8 +134,6 @@ const Home: React.FC = () => {
             </div>
           </section>
         </main>
-
-        <ScrollToTopButton onClick={scrollToTop} />
         <Footer />
       </div>
   );
