@@ -2,8 +2,10 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import Home from "./pages/Home";
 import Modal from "./components/Modal";
+import Home from "./pages/Home";
+import Services from "./pages/Services";
+
 
 const App: React.FC = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -22,6 +24,7 @@ const App: React.FC = () => {
                 <div className="flex-grow">
                     <Routes>
                         <Route path="/" element={<Home />} />
+                        <Route path="/catering" element={<Services />} />
                     </Routes>
                 </div>
 

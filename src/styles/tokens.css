@@ -4,6 +4,12 @@
   --color-accent: #FFCC00;
   --color-bg: #FFFFFF;
 
+  --color-success: #58e15d;
+  --color-error: #ff6363;
+
+  --color-success-dark: #a8efab;
+  --color-error-dark: #ae5555;
+
   /* Spacing scale */
   --space-sm: 0.5rem;
   --space-md: 1rem;
