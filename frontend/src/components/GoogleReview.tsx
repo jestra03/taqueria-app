@@ -58,12 +58,12 @@ const GoogleReview: React.FC = () => {
             {stars}
             <span className="font-bold">{calculateTimeAgo(reviewDate)}</span>
           </div>
-          <p className="text-gray-700 dark:text-gray-400">{t("reviewText")}</p>
+          <p className="text-gray-700 dark:text-white">{t("reviewText")}</p>
         </div>
 
         {/* Footer */}
         <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700 text-sm">
-          <div className="space-x-2 text-gray-600 dark:text-white">
+          <div className="space-x-2 text-gray-600 dark:text-gray-200">
             <span><b>{t("ratingFoodLabel")}</b>: 5/5</span>
             <span>|</span>
             <span><b>{t("ratingServiceLabel")}</b>: 5/5</span>
