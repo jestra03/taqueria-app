@@ -8,7 +8,7 @@ const NotFound: React.FC = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="standard-page w-full min-h-screen bg-whitedark:bg-gray-900 pt-75">
+        <div className="standard-page w-full min-h-screen bg-white dark:bg-gray-900 pt-75">
             <h1 className="text-4xl font-bold text-center dark:text-white">
                 {t("notFoundTitle")}
             </h1>
