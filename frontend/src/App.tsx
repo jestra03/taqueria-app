@@ -5,9 +5,11 @@ import NavBar from "./components/NavBar";
 import Modal from "./components/Modal";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
-import NotFound from "./pages/NotFound";       // ← import here
+import NotFound from "./pages/NotFound";
+import Menu from "./pages/Menu";// ← import here
 import { LanguageProvider } from "./i18n/LanguageContext";
 import LanguageToggle from "./components/LanguageToggle";
+
 
 const App: React.FC = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -29,6 +31,7 @@ const App: React.FC = () => {
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/catering" element={<Services />} />
+                            <Route path="/menu" element={<Menu />} />
                             {/* 404 catch-all route */}
                             <Route path="*" element={<NotFound />} />
                         </Routes>

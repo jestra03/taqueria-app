@@ -310,4 +310,23 @@ export const translations = {
         en: "Go Home",
         es: "Ir al inicio",
     },
+
+    // Menu Stuff
+    menuPageTitle:                { en: "Our Menu",                              es: "Nuestro Menú" },
+    menuCategoryCombinations:     { en: "Combinations",                           es: "Combinaciones" },
+    menuCategoryCombinationsSub:  { en: "-- With rice & beans --",               es: "-- Con arroz y frijoles --" },
+    menuCategoryTacos:            { en: "Tacos/Tortas",                           es: "Tacos/Tortas" },
+    menuCategoryTacosSub:         { en: "-- Cilantro & onion, salsa on the side --", es: "-- Cilantro y cebolla, salsa aparte --" },
+    menuCategoryBurritos:         { en: "Burritos",                               es: "Burritos" },
+    menuCategoryBurritosSub:      { en: "-- Rice, beans, cheese & more --",       es: "-- Arroz, frijoles, queso y más --" },
+    menuCategoryIndividual:       { en: "Individual",                             es: "Por Unidad" },
+    menuCategoryDrinks:           { en: "Drinks/Bebidas",                         es: "Bebidas" },
+    youMightAlsoLike:             { en: "Menu",                    es: "Menú" },
+
+    foodPriceLabel:    { en: "Price:",               es: "Precio:" },
+    foodChoicesLabel:  { en: "Choices:",             es: "Opciones:" },
+    foodStyleLabel:    { en: "Styles:",              es: "Adiciones:" },
+    addToCartButton:   { en: "Add to Cart",          es: "Agregar al carrito" },
+    addedToCart:       { en: "Added to cart!",       es: "¡Agregado!" },
+    noPhoto:           { en: "No Photo",             es: "Sin foto" },
 };
