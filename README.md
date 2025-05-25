@@ -21,7 +21,7 @@ This project is an interactive React frontend demonstrating the core user interf
 - Converted to stateful components: menus, forms, dropdowns now use React state.
 - Interactivity added after the static layout was complete.
 
-## Make It Interactive (6 pts)
+## Make It Interactive
 
 - **Buttons and links** use React handlers for logical navigation and actions.
 - **LocalStorage** is used to persist form inputs and cart contents until browser reload.
@@ -29,7 +29,7 @@ This project is an interactive React frontend demonstrating the core user interf
 - **Image uploads** are simulated by using placeholder images imported as assets.
 - No crashes or unresponsive behavior—edge-case handling is implemented on all handlers.
 
-## Subpages (6 pts)
+## Subpages
 
 - React Router defines three main routes:
   - `/` → Home
@@ -39,7 +39,7 @@ This project is an interactive React frontend demonstrating the core user interf
 - Links and back/forward buttons work as expected.
 - URL hashes scroll to anchors (e.g. “About”) without full page reload.
 
-## Forms (6 pts)
+## Forms
 
 - All `<label>` elements use `htmlFor`.
 - `useId()` and consistent `id` attributes generate unique identifiers.
@@ -47,7 +47,7 @@ This project is an interactive React frontend demonstrating the core user interf
 - Validation prevents submission until all required fields are filled.
 - Submission triggers a loading spinner and notification message.
 
-## Minimum Viable Product (6 pts)
+## Minimum Viable Product
 
 - Mock data: menus, reviews, carousel images, and sample items are hard-coded or fetched via a simulated delay.
 - Guest can add menu items to cart, adjust quantities, and see totals update in real time.
@@ -78,6 +78,6 @@ This project is an interactive React frontend demonstrating the core user interf
 
 | Criterion                         | How It’s Met                                                      |
 | --------------------------------- |----------------------------------------------------------------- |
-| MVP and functionality (6 pts)     | Mocked data, cart, forms, navigation flows, language toggle      |
-| Interactivity (6 pts)             | State updates, persistent LocalStorage, no crashes               |
-| Technical requirements (6 pts)    |  Responsive layouts, accessibility considerations, dark mode       |                                                               |
+| MVP and functionality     | Mocked data, cart, forms, navigation flows, language toggle      |
+| Interactivity           | State updates, persistent LocalStorage, no crashes               |
+| Technical requirements   |  Responsive layouts, accessibility considerations, dark mode       |                                                               |
