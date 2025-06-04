@@ -3,6 +3,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import menuRoutes from "./routes/menuRoutes";
+import authRoutes from "./routes/authRoutes"; // <-- import auth routes
 
 dotenv.config();
 
@@ -23,6 +24,9 @@ app.get("/", (_req: Request, res: Response) => {
 
 // Mount menu routes
 app.use("/menu", menuRoutes);
+
+// Mount auth routes
+app.use("/auth", authRoutes);
 
 // Start server
 const PORT = process.env.PORT || 8000;
