@@ -9,7 +9,6 @@ import img1 from "../assets/menu-1.jpg";
 import img2 from "../assets/menu-2.jpg";
 import img3 from "../assets/menu-3.jpg";
 
-// Mock menu data
 interface MenuItem {
     id: number;
     title: string;
@@ -21,33 +20,39 @@ interface MenuItem {
     desc?: string;
 }
 
-const mockMenuItems: MenuItem[] = [
-    { id: 1, title: "Deluxe Burrito", price: 9.5, category: "Burritos", photo: "menu-1" },
-    { id: 2, title: "Asada Tacos", price: 3.0, category: "Tacos/Tortas", photo: "menu-2" },
-    { id: 3, title: "Shrimp Cocktail", price: 7.0, category: "Individual", photo: "menu-3" },
-    { id: 4, title: "Party Platter", price: 45.0, category: "Combinations", desc: "Feeds 4–6 guests" },
-    { id: 5, title: "Horchata", price: 2.5, category: "Drinks/Bebidas" },
-];
-
 const menuImages = [{ imageURL: img1 }, { imageURL: img2 }, { imageURL: img3 }];
 
 const Menu: React.FC = () => {
     const t = useTranslation;
     const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Simulate server call
-        setTimeout(() => setMenuItems(mockMenuItems), 300);
+        const apiUrl = import.meta.env.VITE_API_URL;
+        fetch(`${apiUrl}/menu/items`)
+            .then((res) => {
+                if (!res.ok) throw new Error("Network response was not ok");
+                return res.json();
+            })
+            .then((data: MenuItem[]) => {
+                setMenuItems(data);
+            })
+            .catch((err) => {
+                console.error("Error fetching menu items:", err);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
 
     return (
-        <div className="flex flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 pt-25">
+        <div className="flex flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 pt-[var(--space-lg)]">
             <div className="standard-page py-[var(--space-lg)] px-[var(--space-md)]">
                 <h1 className="text-4xl font-bold text-center mb-[var(--space-md)]">
                     {t("menuPageTitle")}
                 </h1>
 
-                {!menuItems.length ? (
+                {loading ? (
                     <div className="flex justify-center py-20">
                         <div className="loading-spinner"></div>
                     </div>
@@ -57,7 +62,6 @@ const Menu: React.FC = () => {
                             title={t("menuCategoryCombinations")}
                             subtitle={t("menuCategoryCombinationsSub")}
                             items={menuItems.filter((i) => i.category === "Combinations")}
-                            imgIcon="/assets/combinations.png"
                         />
                         <FoodCategory
                             title={t("menuCategoryTacos")}
@@ -68,7 +72,6 @@ const Menu: React.FC = () => {
                             title={t("menuCategoryBurritos")}
                             subtitle={t("menuCategoryBurritosSub")}
                             items={menuItems.filter((i) => i.category === "Burritos")}
-                            imgIcon="/assets/burrito-icon.png"
                         />
                         <FoodCategory
                             title={t("menuCategoryIndividual")}
@@ -76,20 +79,25 @@ const Menu: React.FC = () => {
                         />
                         <FoodCategory
                             title={t("menuCategoryDrinks")}
-                            items={menuItems.filter((i) => i.category === "Drinks/Bebidas")}
+                            items={menuItems.filter((i) => i.category === "Drinks")}
                         />
 
                         <div className="mt-[var(--space-lg)]">
                             <h2 className="text-2xl font-semibold mb-[var(--space-md)] text-center">
                                 {t("youMightAlsoLike")}
                             </h2>
-                            <ImageCarousel images={menuImages} className="w-full md:max-w-3xl mx-auto" />
+                            <ImageCarousel
+                                images={menuImages}
+                                className="w-full md:max-w-3xl mx-auto"
+                            />
                         </div>
                     </>
                 )}
             </div>
 
-            <ScrollToTopButton onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} />
+            <ScrollToTopButton
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            />
             <Footer />
         </div>
     );

@@ -1,7 +1,7 @@
 // src/components/FoodEntry.tsx
 import React from "react";
 import { useTranslation } from "../i18n/useTranslation";
-import images from "../utils/importImages.tsx";
+import images from "../utils/importImages";
 
 export interface MenuItem {
     id: number;
@@ -19,15 +19,17 @@ interface FoodEntryProps {
 
 const FoodEntry: React.FC<FoodEntryProps> = ({ item }) => {
     const t = useTranslation;
+    // If the specified photo filename isn’t in the importImages map, use "default.png"
+    const photoSrc = item.photo && images[item.photo] ? images[item.photo] : images["default.png"];
 
     return (
         <div className="w-56 p-4 bg-[var(--color-form-bg)] dark:bg-[var(--color-form-bg-dark)] rounded-lg shadow">
             <h5 className="text-lg font-medium mb-2">{item.title}</h5>
 
             <div className="w-full h-40 bg-white rounded overflow-hidden flex items-center justify-center mb-2">
-                {item.photo ? (
+                {photoSrc ? (
                     <img
-                        src={images[item.photo]}
+                        src={photoSrc}
                         alt={item.title}
                         className="object-cover h-full"
                     />

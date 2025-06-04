@@ -1,6 +1,6 @@
 // src/utils/importImages.ts
 
-const modules = import.meta.glob("/src/assets/*.png", { eager: true, as: "url" });
+const modules = import.meta.glob("/src/assets/images/*.png", { eager: true, as: "url" });
 
 const images: Record<string, string> = {};
 for (const path in modules) {

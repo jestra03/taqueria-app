@@ -19,16 +19,12 @@ interface FoodCategoryProps {
     title: string;
     subtitle?: string;
     items: MenuItem[];
-    icon?: React.ComponentType<{ className?: string }>;
-    imgIcon?: string;
 }
 
 const FoodCategory: React.FC<FoodCategoryProps> = ({
                                                        title,
                                                        subtitle,
                                                        items,
-                                                       icon: Icon,
-                                                       imgIcon,
                                                    }) => {
     const t = useTranslation;
     const [expanded, setExpanded] = useState(false);
@@ -39,13 +35,7 @@ const FoodCategory: React.FC<FoodCategoryProps> = ({
                 className="flex items-center justify-between cursor-pointer select-none"
                 onClick={() => setExpanded((v) => !v)}
             >
-                <h2 className="flex items-center text-2xl font-semibold">
-                    {title}
-                    {Icon && <Icon className="ml-2 text-xl" />}
-                    {imgIcon && (
-                        <img src={imgIcon} alt={title} className="ml-2 h-6 w-6" />
-                    )}
-                </h2>
+                <h2 className="text-2xl font-semibold">{title}</h2>
                 <HiChevronRight
                     className={`transform transition-transform ${
                         expanded ? "rotate-90" : ""

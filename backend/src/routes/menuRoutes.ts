@@ -22,6 +22,7 @@ router.get("/items", async (_req: Request, res: Response, _next: NextFunction): 
             throw error;
         }
         res.status(200).json(data);
+        console.log(data);
         return;
     } catch (err) {
         const message =
