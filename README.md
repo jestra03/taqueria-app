@@ -1,83 +1,136 @@
-# Interactive Frontend Milestone
+# Taqueria Website
 
-This project is an interactive React frontend demonstrating the core user interface and flows for Taqueria Cinco de Mayo. There is no backend for this milestone; data is mocked in the frontend.
+This is a full-stack web application for a taqueria business, built with a React + Vite frontend and an Express + Supabase backend using TypeScript on both ends.
 
-## Getting Started
-
-1. Clone your fork of the template repository.
-2. Navigate into the `frontend` folder:
-   ```bash
-   cd frontend
-   npm install
-   npm run dev
-   ```
-3. Vite will start on `http://localhost:5173`. All source code and React components live in `src/`.
-
-> The `backend` folder is ignored for this milestone.
-
-## Thinking in React
-
-- Static UI first: all pages were built as React components with hard-coded markup.
-- Converted to stateful components: menus, forms, dropdowns now use React state.
-- Interactivity added after the static layout was complete.
-
-## Make It Interactive
-
-- **Buttons and links** use React handlers for logical navigation and actions.
-- **LocalStorage** is used to persist form inputs and cart contents until browser reload.
-- **Dropdowns**, **toggles**, and **expanding sections** update on click and close on outside click.
-- **Image uploads** are simulated by using placeholder images imported as assets.
-- No crashes or unresponsive behavior—edge-case handling is implemented on all handlers.
-
-## Subpages
-
-- React Router defines three main routes:
-  - `/` → Home
-  - `/catering` → Services (catering form)
-  - `/menu` → Menu
-  - `*` → 404 Not Found
-- Links and back/forward buttons work as expected.
-- URL hashes scroll to anchors (e.g. “About”) without full page reload.
-
-## Forms
-
-- All `<label>` elements use `htmlFor`.
-- `useId()` and consistent `id` attributes generate unique identifiers.
-- The catering form uses a single `useState` object and `onChange` handlers.
-- Validation prevents submission until all required fields are filled.
-- Submission triggers a loading spinner and notification message.
-
-## Minimum Viable Product
-
-- Mock data: menus, reviews, carousel images, and sample items are hard-coded or fetched via a simulated delay.
-- Guest can add menu items to cart, adjust quantities, and see totals update in real time.
-- Catering form accepts input and displays a confirmation message.
-- Language toggle persists selection across subpages until reload.
-- Dark mode toggle persists in `document.documentElement` class until reload.
-
-## Other Requirements
-
-- **React framework**: All UI is implemented in React + TypeScript. No vanilla-JS jQuery.
-- **Responsive design**: Tailwind breakpoints (`sm`, `md`, `lg`) ensure layouts adapt to mobile, tablet, and desktop without horizontal scrollbars.
-- **Accessibility**:
-  - Semantic HTML (`<nav>`, `<main>`, `<section>`, `<button>`, etc.)
-  - `aria-label` used on interactive elements (e.g. language toggle, skip links).
-  - Keyboard focus styles and `cursor: pointer` on buttons.
-- **Dark mode**: Toggle in settings modal and fixed language switcher; all components adapt via `dark:` variants.
-- **Usability**: Components are self-documented and navigable; consistent design tokens are used for spacing and colors.
-
-## Submission
-
-1. Commit and push all changes to your public GitHub repository.
-2. In Canvas, submit the repository URL.
-3. Ensure that the `frontend` folder contains your working Vite/React app.
+The site includes multi-language support (i18n), responsive design, account registration with email verification, dark mode, and persistent data storage.
 
 ---
 
-### Rubric Alignment
+## Features
 
-| Criterion                         | How It’s Met                                                      |
-| --------------------------------- |----------------------------------------------------------------- |
-| MVP and functionality     | Mocked data, cart, forms, navigation flows, language toggle      |
-| Interactivity           | State updates, persistent LocalStorage, no crashes               |
-| Technical requirements   |  Responsive layouts, accessibility considerations, dark mode       |                                                               |
+- Account signup, login, and email verification using JWT
+- Responsive design and dark mode toggle
+- Multi-language UI via context-based i18n
+- Persistent data storage via Supabase
+- Secure password hashing using bcrypt
+- Loading/error indicators on data fetching
+- Server-client API design using REST principles
+- Login access is available through the settings modal
+
+---
+
+## Tech Stack
+
+**Frontend**
+- Vite + React + TypeScript
+- TailwindCSS
+- React Router
+
+**Backend**
+- Express.js + TypeScript
+- Supabase (PostgreSQL)
+- JWT for authentication
+- Nodemailer for email verification
+
+---
+
+## Requirements Met
+
+- ✅ MVP implemented: User signup, verification, login (via modal), with placeholder business features
+- ✅ User Authentication: hashed passwords, login with JWTs, email verification
+- ✅ Persistent Data: stored in Supabase with CRUD endpoints
+- ✅ Responsive Design: viewable on all screen sizes
+- ✅ Minimal Accessibility Issues
+- ✅ Dark Mode Toggle included
+- ✅ Uses ExpressJS on backend and React on frontend
+- ✅ TypeScript used throughout both client and server
+- ✅ API design follows REST conventions
+- ✅ Error and loading indicators implemented
+
+---
+
+## Setup Instructions
+
+### 1. Clone the Repositories
+
+- Frontend:  
+  ```bash
+  git clone https://github.com/yourusername/taqueria-frontend
+  ```
+
+- Backend:  
+  ```bash
+  git clone https://github.com/yourusername/taqueria-backend
+  ```
+
+---
+
+### 2. Environment Variables
+
+#### Frontend (`.env`)
+```env
+VITE_API_BASE=https://your-backend-domain.com
+```
+
+#### Backend (`.env`)
+```env
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_SERVICE_KEY=your-supabase-key
+JWT_SECRET=your-jwt-secret
+SMTP_USER=youremail@example.com
+SMTP_PASS=your-email-password
+SMTP_HOST=smtp.gmail.com
+SMTP_FROM=no-reply@yourdomain.com
+```
+
+---
+
+### 3. Install Dependencies
+
+#### Frontend
+```bash
+cd taqueria-frontend
+npm install
+```
+
+#### Backend
+```bash
+cd taqueria-backend
+npm install
+```
+
+---
+
+### 4. Run the Development Servers
+
+#### Frontend
+```bash
+npm run dev
+```
+
+#### Backend
+```bash
+npm run dev
+```
+
+Ensure ports and API URLs match in your `.env` file.
+
+---
+
+## Deployment Notes
+
+- Frontend is deployed via [Vercel](https://vercel.com/)
+- Backend is deployed separately (recommended via Railway, Fly.io, or a VPS)
+- Environment variables must be set in the deployment platform
+
+---
+
+## Note
+
+The login and logout functionality is not exposed prominently in the main navigation. It is intentionally tucked away in the **Settings modal**, as authentication is not a primary user-facing feature of this business-oriented site. This was done for aesthetic and functional streamlining of the public-facing experience.
+
+---
+
+## License
+
+MIT License.
