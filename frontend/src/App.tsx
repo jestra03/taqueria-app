@@ -1,14 +1,19 @@
 // src/App.tsx
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { LanguageProvider } from "./i18n/LanguageContext";
 import NavBar from "./components/NavBar";
 import Modal from "./components/Modal";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import NotFound from "./pages/NotFound";
-import Menu from "./pages/Menu";// ← import here
-import { LanguageProvider } from "./i18n/LanguageContext";
+import Menu from "./pages/Menu";
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import VerifyEmailPage from './pages/VerifyEmailPage'; // ← import here
 import LanguageToggle from "./components/LanguageToggle";
+import ConfirmedPage from "./pages/ConfirmedPage.tsx";
+import RedirectIfAuthenticated from "./utils/RedirectIfAuthenticated";
 
 
 const App: React.FC = () => {
@@ -32,6 +37,20 @@ const App: React.FC = () => {
                             <Route path="/" element={<Home />} />
                             <Route path="/catering" element={<Services />} />
                             <Route path="/menu" element={<Menu />} />
+                            <Route path="/login" element={
+                                <RedirectIfAuthenticated>
+                                    <LoginPage />
+                                </RedirectIfAuthenticated>} />
+                            <Route path="/signup" element={
+                                <RedirectIfAuthenticated>
+                                    <SignupPage />
+                                </RedirectIfAuthenticated>
+                            } />
+                            <Route path="/verify-email" element={
+                                <RedirectIfAuthenticated>
+                                <VerifyEmailPage/>
+                                </RedirectIfAuthenticated>} />
+                            <Route path="/confirmed" element={<ConfirmedPage />} />
                             {/* 404 catch-all route */}
                             <Route path="*" element={<NotFound />} />
                         </Routes>
@@ -49,10 +68,29 @@ const App: React.FC = () => {
                                 onChange={() => setDarkMode((v) => !v)}
                                 className="h-5 w-5 rounded border-gray-300 focus:ring-2 focus:ring-[var(--color-accent)]"
                             />
-                            <span className="text-gray-900 dark:text-gray-100">
-                Dark Mode
-              </span>
+                            <span className="text-gray-900 dark:text-gray-100">Dark Mode</span>
                         </label>
+
+                        {localStorage.getItem("user-token") ? (
+                            <button
+                                onClick={() => {
+                                    localStorage.removeItem("user-token");
+                                    window.location.href = "/login";
+                                }}
+                                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 m-4 rounded"
+                            >
+                                Logout
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => {
+                                    window.location.href = "/login";
+                                }}
+                                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 m-4 rounded"
+                            >
+                                Login
+                            </button>
+                        )}
                     </Modal>
                 </div>
             </Router>

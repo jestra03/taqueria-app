@@ -2,6 +2,7 @@
 import React from "react";
 import { AiFillStar } from "react-icons/ai";
 import { useTranslation } from "../i18n/useTranslation";
+import reviewer from "../assets/reviewer.png"
 
 const reviewDate = new Date("2024-02-01");
 
@@ -34,7 +35,7 @@ const GoogleReview: React.FC = () => {
         <div className="flex items-center space-x-4">
           <img
               className="h-9 w-9 rounded-full"
-              src="https://lh3.googleusercontent.com/a-/ALV-UjXJOlnsoHjjOeSdTnk5c3iXU8GvzwQUkeLb-gCPgeZZVVBqOcHf=w60-h60-p-rp-mo-br100"
+              src={reviewer}
               alt={t("reviewerAvatarAlt")}
           />
           <div className="flex flex-col text-sm">

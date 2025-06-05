@@ -135,10 +135,10 @@ const signup: RequestHandler = async (req, res) => {
         await emailTransporter.sendMail({
             from: process.env.SMTP_FROM || process.env.SMTP_USER,
             to: email,
-            subject: "🌮 Verify Your Taqueria Account",
+            subject: "🌮 Verify Your Taqueria Cinco De Mayo Account",
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                    <h2 style="color: #333;">Welcome to Taqueria App!</h2>
+                    <h2 style="color: #333;">Welcome to Taqueria Cinco De Mayo!</h2>
                     <p>Hi ${fullName || username},</p>
                     <p>Please verify your email with the code below:</p>
                     <div style="background: #f4f4f4; padding: 20px; text-align: center; margin: 20px 0;">
