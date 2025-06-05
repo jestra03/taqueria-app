@@ -120,14 +120,14 @@ Ensure ports and API URLs match in your `.env` file.
 ## Deployment Notes
 
 - Frontend is deployed via [Vercel](https://vercel.com/)
-- Backend is deployed separately (recommended via Railway, Fly.io, or a VPS)
-- Environment variables must be set in the deployment platform
+- Backend is deployed separately via Vercel
+- Environment variables are set with production keys/URLs in the deployment platform's dashboard
 
 ---
 
 ## Note
 
-The login and logout functionality is not exposed prominently in the main navigation. It is intentionally tucked away in the **Settings modal**, as authentication is not a primary user-facing feature of this business-oriented site. This was done for aesthetic and functional streamlining of the public-facing experience.
+The login and logout functionality is not exposed prominently in the main navigation. It is intentionally tucked away in the **Settings modal**, as authentication is not a primary user-facing feature of this business-oriented site. (This was done mostly because my 437 project required it).
 
 ---
 
