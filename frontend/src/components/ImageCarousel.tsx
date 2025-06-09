@@ -2,13 +2,14 @@
 import React, { useState, useEffect } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
-interface Image {
+interface CarouselImage {
     imageURL: string;
+    altText: string;
 }
 
 interface Props {
-    images: Image[];
-    className?: string; // parent can pass "max-w-md", etc.
+    images: CarouselImage[];
+    className?: string;
 }
 
 const ImageCarousel: React.FC<Props> = ({ images, className = "" }) => {
@@ -29,7 +30,7 @@ const ImageCarousel: React.FC<Props> = ({ images, className = "" }) => {
             <div className="relative w-full aspect-video overflow-hidden rounded-lg shadow-lg">
                 <img
                     src={images[current].imageURL}
-                    alt={`Slide ${current + 1}`}
+                    alt={images[current].altText}
                     className="w-full h-full object-cover"
                 />
 
@@ -37,21 +38,15 @@ const ImageCarousel: React.FC<Props> = ({ images, className = "" }) => {
                     <>
                         <button
                             onClick={prev}
-                            className="
-                absolute left-2 top-1/2 -translate-y-1/2
-                bg-white bg-opacity-50 hover:bg-opacity-75
-                p-2 rounded-full focus:outline-none
-              "
+                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 p-2 rounded-full focus:outline-none"
+                            aria-label="Previous image"
                         >
                             <HiChevronLeft className="h-6 w-6 text-gray-800" />
                         </button>
                         <button
                             onClick={next}
-                            className="
-                absolute right-2 top-1/2 -translate-y-1/2
-                bg-white bg-opacity-50 hover:bg-opacity-75
-                p-2 rounded-full focus:outline-none
-              "
+                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 p-2 rounded-full focus:outline-none"
+                            aria-label="Next image"
                         >
                             <HiChevronRight className="h-6 w-6 text-gray-800" />
                         </button>
@@ -65,7 +60,7 @@ const ImageCarousel: React.FC<Props> = ({ images, className = "" }) => {
                     <img
                         key={idx}
                         src={img.imageURL}
-                        alt={`Thumbnail ${idx + 1}`}
+                        alt={img.altText}
                         onClick={() => setCurrent(idx)}
                         className={`
               w-16 h-16 object-cover rounded-lg cursor-pointer

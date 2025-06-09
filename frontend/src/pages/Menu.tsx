@@ -20,7 +20,49 @@ interface MenuItem {
     desc?: string;
 }
 
-const menuImages = [{ imageURL: img1 }, { imageURL: img2 }, { imageURL: img3 }];
+const menuImages = [
+    {
+        imageURL: img1,
+        altText: `
+Burritos: Pastor $9.75, Asada $10.50, Buche $9.75, Carnitas $9.75, Pollo $9.25, Chile Relleno $10.25, Veggie $9.75, Birria $10.75, Rice, beans and cheese $7.00, Beans and cheese $6.00.
+California (rice, beans, potatoes, guacamole, jalapeños, sour cream & cheese) $10.50.
+Chimichanga (beans, cheese, sour cream, guac, cheese) $10.50.
+Fish or Shrimp Burrito (rice, beans, cabbage, pico, Ensenada-style, cheese) $12.75.
+
+Tortas $10.45 each: Asada, Pastor, Jamón, Birria, Pollo, Chorizo, Carnitas.
+Includes beans, choice of meat, lettuce, tomato, onion, avocado & jalapeño.
+`
+    },
+    {
+        imageURL: img2,
+        altText: `
+Combinations (with rice & beans):
+#1 Two chiles rellenos $14.00,
+#2 Two cheese enchiladas $12.99,
+#3 Two tamales (pork or chicken) $12.99,
+#4 One chile relleno & one cheese enchilada $12.99,
+#5 Two soft tacos (asada, carnitas, chicken or pastor) $11.99,
+#6 Two soft tacos (fish, shrimp, cabbage, Ensenada-style, pico de gallo) $12.99,
+#7 Two enchiladas (asada, carnitas, pastor or chicken) $12.99,
+#8 Two crispis tacos (asada, carnitas, pastor or chicken) $11.99.
+
+Tacos $3.00 each: Asada, Pastor, Buche, Carnitas, Birria, Veggie,
+Fish (pescado grilled tilapia), Shrimp (camarón, cabbage, Ensenada-style, pico).
+`
+    },
+    {
+        imageURL: img3,
+        altText: `
+Individual Items:
+Sopes $12.25, Asada fries $13.25, Chile Relleno $5.25, 3 Tacos Quesa Birria (with consome) $13.25,
+Taco salad $10.99, 3 Crispy Tacos (potato) $10.99, 5 Taquitos papa (cheese, lettuce, guacamole, sour cream) $10.99,
+Quesadilla Supreme $11.75, Quesadilla $8.25, Tamales $3.50, Nachos $8.25, Nachos Supreme $10.25,
+Side of fries $4.75, Side of rice & beans $4.75, Chips and salsa $3.75, Guacamole 4oz $3.00, Tostada (choice of meat) $6.99.
+
+Drinks: Can Soda $2.00, Jarritos $3.50, Bottle Water $1.50, Horchata / Jamaica $3.50.
+`
+    }
+];
 
 const Menu: React.FC = () => {
     const t = useTranslation;

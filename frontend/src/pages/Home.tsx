@@ -28,6 +28,20 @@ const Home: React.FC = () => {
   const aboutUsTitle = useTranslation("aboutUsTitle");
   const shortAbout = useTranslation("shortAbout");
   const reviewsTitle = useTranslation("reviewsTitle");
+  const foodImages = [
+    {
+      imageURL: food1,
+      altText: "Cross-section of a breakfast burrito wrapped in foil, filled with eggs, beef, and peppers",
+    },
+    {
+      imageURL: food2,
+      altText: "Torta sandwich wrapped in yellow paper, showing lettuce, avocado, and soft bun",
+    },
+    {
+      imageURL: food3,
+      altText: "Open-faced torta with shredded meat, avocado slices, red onion, lettuce, jalapeños, and tomato",
+    },
+  ];
 
   // Scroll-to-hash logic
   useEffect(() => {
@@ -100,7 +114,7 @@ const Home: React.FC = () => {
 
               <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10">
                 <ImageCarousel
-                    images={[{ imageURL: food1 }, { imageURL: food2 }, { imageURL: food3 }]}
+                    images={foodImages}
                     className="w-full max-w-md mx-auto lg:w-full"
                 />
 

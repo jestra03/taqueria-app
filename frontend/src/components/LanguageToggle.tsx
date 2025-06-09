@@ -28,6 +28,7 @@ const LanguageToggle: React.FC = () => {
             <ReactCountryFlag
                 countryCode={countryCode}
                 svg
+                aria-hidden="true"  // since this is purely decorative we will hide it, no alt-text
                 style={{
                     position: 'absolute',
                     top: -10,
