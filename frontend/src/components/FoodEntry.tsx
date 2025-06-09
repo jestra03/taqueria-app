@@ -1,7 +1,11 @@
 // src/components/FoodEntry.tsx
 import React from "react";
 import { useTranslation } from "../i18n/useTranslation";
+import axios from "axios";
 import images from "../utils/importImages";
+import { Heart } from "lucide-react";
+
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export interface MenuItem {
     id: number;
@@ -19,11 +23,42 @@ interface FoodEntryProps {
 
 const FoodEntry: React.FC<FoodEntryProps> = ({ item }) => {
     const t = useTranslation;
-    // If the specified photo filename isn’t in the importImages map, use "default.png"
-    const photoSrc = item.photo && images[item.photo] ? images[item.photo] : images["default.png"];
+    const token = localStorage.getItem("user-token");
+
+    const photoSrc =
+        item.photo && images[item.photo] ? images[item.photo] : images["default.png"];
+
+    async function handleFavorite(foodId: number) {
+        if (!token) return;
+
+        try {
+            await axios.post(
+                `${API_BASE}/menu/favorites/add`,
+                { foodId },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            console.log("Favorited!");
+        } catch (err) {
+            console.error("Favorite failed", err);
+        }
+    }
 
     return (
-        <div className="w-56 p-4 bg-[var(--color-form-bg)] dark:bg-[var(--color-form-bg-dark)] rounded-lg shadow">
+        <div className="relative w-56 p-4 bg-[var(--color-form-bg)] dark:bg-[var(--color-form-bg-dark)] rounded-lg shadow">
+            {token && (
+                <button
+                    onClick={() => handleFavorite(item.id)}
+                    title="Add to favorites"
+                    className="absolute top-2 right-2 p-1 rounded-full bg-white dark:bg-gray-700 shadow"
+                >
+                    <Heart className="w-5 h-5 text-red-500" />
+                </button>
+            )}
+
             <h5 className="text-lg font-medium mb-2">{item.title}</h5>
 
             <div className="w-full h-40 bg-white rounded overflow-hidden flex items-center justify-center mb-2">
