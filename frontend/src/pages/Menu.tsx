@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import FoodCategory from "../components/FoodCategory";
 import ImageCarousel from "../components/ImageCarousel";
 import ScrollToTopButton from "../components/ScrollToTopButton";
+import LoadingSpinner from "../components/LoadingSpinner.tsx";
 import Footer from "../components/Footer";
 import { useTranslation } from "../i18n/useTranslation";
 import img1 from "../assets/menu-1.jpg";
@@ -68,6 +69,7 @@ const Menu: React.FC = () => {
     const t = useTranslation;
     const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         const apiUrl = import.meta.env.VITE_API_URL;
@@ -81,6 +83,7 @@ const Menu: React.FC = () => {
             })
             .catch((err) => {
                 console.error("Error fetching menu items:", err);
+                setLoading(err);
             })
             .finally(() => {
                 setLoading(false);
@@ -93,10 +96,14 @@ const Menu: React.FC = () => {
                 <h1 className="text-4xl font-bold text-center mb-[var(--space-md)]">
                     {t("menuPageTitle")}
                 </h1>
-
+                {error && (
+                    <div className="text-red-600 text-center py-4 font-medium">
+                        {error}
+                    </div>
+                )}
                 {loading ? (
                     <div className="flex justify-center py-20">
-                        <div className="loading-spinner"></div>
+                        <LoadingSpinner />
                     </div>
                 ) : (
                     <>
