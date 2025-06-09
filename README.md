@@ -16,6 +16,7 @@ The site includes multi-language support (i18n), responsive design, account regi
 - Loading/error indicators on data fetching
 - Server-client API design using REST principles
 - Login access is available through the settings modal
+- Favorites feature for menu items (must be logged in to see)
 
 ---
 
@@ -46,6 +47,8 @@ The site includes multi-language support (i18n), responsive design, account regi
 - ✅ TypeScript used throughout both client and server
 - ✅ API design follows REST conventions
 - ✅ Error and loading indicators implemented
+- ✅ CRUD Operations for CREATING, UPDATING, DELETING A USER RESOURCE
+- ✅ New Favorites feature for users that support the previously mentioned CRUD operations
 
 ---
 
