@@ -19,12 +19,16 @@ interface FoodCategoryProps {
     title: string;
     subtitle?: string;
     items: MenuItem[];
+    userFavorites?: string[];
+    onFavoriteChange?: (itemId: number, isFavorited: boolean) => void;
 }
 
 const FoodCategory: React.FC<FoodCategoryProps> = ({
                                                        title,
                                                        subtitle,
                                                        items,
+                                                       userFavorites = [],
+                                                       onFavoriteChange,
                                                    }) => {
     const t = useTranslation;
     const [expanded, setExpanded] = useState(false);
@@ -50,7 +54,12 @@ const FoodCategory: React.FC<FoodCategoryProps> = ({
             {expanded && (
                 <div className="mt-4 flex flex-wrap justify-center gap-6">
                     {items.map((item) => (
-                        <FoodEntry key={item.id} item={item} />
+                        <FoodEntry
+                            key={item.id}
+                            item={item}
+                            userFavorites={userFavorites}
+                            onFavoriteChange={onFavoriteChange}
+                        />
                     ))}
                 </div>
             )}

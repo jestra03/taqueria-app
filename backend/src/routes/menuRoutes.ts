@@ -34,54 +34,147 @@ router.get("/items", async (_req: Request, res: Response, _next: NextFunction): 
     }
 });
 
-// POST /api/favorites/add
-router.post("/favorites/add", authenticateToken, (req, res) => {
-    (async () => {
-        try {
-            const { foodId } = req.body;
-            const userId = req.user.id; // ✅ Changed from req.user.userID to req.user.id
+// POST /menu/favorites/add
+router.post("/favorites/add", authenticateToken, async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { foodId } = req.body;
+        // @ts-ignore
+        const userId = req.user.userId; // Use userId consistently
 
-            console.log("🍕 Adding favorite - User ID:", userId, "Food ID:", foodId);
+        console.log("🍕 Adding favorite - User ID:", userId, "Food ID:", foodId);
 
-            const { data: userData, error: fetchError } = await supabase
-                .from("users")
-                .select("favoriteMenuItems")
-                .eq("userID", userId) // Make sure this column name matches your database
-                .single();
+        // Fetch current favorites
+        const { data: userData, error: fetchError } = await supabase
+            .from("users")
+            .select("favoriteMenuItems")
+            .eq("userID", userId) // Keep consistent with your DB schema
+            .single();
 
-            if (fetchError) {
-                console.error("❌ Failed to fetch favorites:", fetchError.message);
-                return res.status(500).json({ error: fetchError.message });
-            }
-
-            const currentFavorites = userData.favoriteMenuItems || [];
-
-            if (currentFavorites.includes(foodId.toString())) {
-                console.log(`ℹ️ User ${userId} already favorited food ${foodId}`);
-                return res.status(200).json({ message: "Already favorited" });
-            }
-
-            const updatedFavorites = [...currentFavorites, foodId.toString()];
-
-            const { error: updateError } = await supabase
-                .from("users")
-                .update({ favoriteMenuItems: updatedFavorites })
-                .eq("userID", userId); // Make sure this column name matches your database
-
-            if (updateError) {
-                console.error("❌ Failed to update favorites:", updateError.message);
-                return res.status(500).json({ error: updateError.message });
-            }
-
-            console.log(`✅ Added food ${foodId} to favorites for user ${userId}`);
-            return res.status(200).json({ message: "Added to favorites" });
-        } catch (err) {
-            console.error("🔥 Uncaught /favorites/add error:", err);
-            return res.status(500).json({ error: "Internal error" });
+        if (fetchError) {
+            console.error("❌ Failed to fetch favorites:", fetchError.message);
+            res.status(500).json({ error: fetchError.message });
+            return;
         }
-    })();
+
+        const currentFavorites = userData.favoriteMenuItems || [];
+
+        // Check if already favorited
+        if (currentFavorites.includes(foodId.toString())) {
+            console.log(`ℹ️ User ${userId} already favorited food ${foodId}`);
+            res.status(200).json({ message: "Already favorited" });
+            return;
+        }
+
+        // Add to favorites
+        const updatedFavorites = [...currentFavorites, foodId.toString()];
+
+        const { error: updateError } = await supabase
+            .from("users")
+            .update({ favoriteMenuItems: updatedFavorites })
+            .eq("userID", userId);
+
+        if (updateError) {
+            console.error("❌ Failed to update favorites:", updateError.message);
+            res.status(500).json({ error: updateError.message });
+            return;
+        }
+
+        console.log(`✅ Added food ${foodId} to favorites for user ${userId}`);
+        res.status(200).json({
+            message: "Added to favorites",
+            favorites: updatedFavorites
+        });
+    } catch (err) {
+        console.error("🔥 Uncaught /favorites/add error:", err);
+        res.status(500).json({ error: "Internal error" });
+    }
 });
 
+// DELETE /menu/favorites/remove
+router.delete("/favorites/remove", authenticateToken, async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { foodId } = req.body;
+        // @ts-ignore
+        const userId = req.user.userId;
+
+        console.log("🗑️ Removing favorite - User ID:", userId, "Food ID:", foodId);
+
+        // Fetch current favorites
+        const { data: userData, error: fetchError } = await supabase
+            .from("users")
+            .select("favoriteMenuItems")
+            .eq("userID", userId)
+            .single();
+
+        if (fetchError) {
+            console.error("❌ Failed to fetch favorites:", fetchError.message);
+            res.status(500).json({ error: fetchError.message });
+            return;
+        }
+
+        const currentFavorites = userData.favoriteMenuItems || [];
+
+        // Check if item is actually favorited
+        if (!currentFavorites.includes(foodId.toString())) {
+            console.log(`ℹ️ User ${userId} hasn't favorited food ${foodId}`);
+            res.status(200).json({ message: "Not in favorites" });
+            return;
+        }
+
+        // Remove from favorites
+        const updatedFavorites = currentFavorites.filter((id: any) => id !== foodId.toString());
+
+        const { error: updateError } = await supabase
+            .from("users")
+            .update({ favoriteMenuItems: updatedFavorites })
+            .eq("userID", userId);
+
+        if (updateError) {
+            console.error("❌ Failed to update favorites:", updateError.message);
+            res.status(500).json({ error: updateError.message });
+            return;
+        }
+
+        console.log(`✅ Removed food ${foodId} from favorites for user ${userId}`);
+        res.status(200).json({
+            message: "Removed from favorites",
+            favorites: updatedFavorites
+        });
+    } catch (err) {
+        console.error("🔥 Uncaught /favorites/remove error:", err);
+        res.status(500).json({ error: "Internal error" });
+    }
+});
+
+// GET /menu/favorites - Get user's favorites
+router.get("/favorites", authenticateToken, async (req: Request, res: Response): Promise<void> => {
+    try {
+        // @ts-ignore
+        const userId = req.user.userId;
+
+        console.log("📋 Fetching favorites for user:", userId);
+
+        const { data: userData, error } = await supabase
+            .from("users")
+            .select("favoriteMenuItems")
+            .eq("userID", userId)
+            .single();
+
+        if (error) {
+            console.error("❌ Failed to fetch favorites:", error.message);
+            res.status(500).json({ error: error.message });
+            return;
+        }
+
+        const favorites = userData.favoriteMenuItems || [];
+        console.log(`✅ User ${userId} has ${favorites.length} favorites`);
+
+        res.status(200).json({ favorites });
+    } catch (err) {
+        console.error("🔥 Uncaught /favorites error:", err);
+        res.status(500).json({ error: "Internal error" });
+    }
+});
 
 
 export default router;

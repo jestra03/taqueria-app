@@ -1,6 +1,6 @@
 // src/App.tsx
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import NavBar from "./components/NavBar";
 import Modal from "./components/Modal";
@@ -10,15 +10,16 @@ import NotFound from "./pages/NotFound";
 import Menu from "./pages/Menu";
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
-import VerifyEmailPage from './pages/VerifyEmailPage'; // ← import here
+import VerifyEmailPage from './pages/VerifyEmailPage';
 import LanguageToggle from "./components/LanguageToggle";
 import ConfirmedPage from "./pages/ConfirmedPage.tsx";
 import RedirectIfAuthenticated from "./utils/RedirectIfAuthenticated";
 
-
 const App: React.FC = () => {
     const [darkMode, setDarkMode] = useState(false);
     const [settingsOpen, setSettingsOpen] = useState(false);
+
+    const isLoggedIn = !!localStorage.getItem("user-token");
 
     useEffect(() => {
         document.documentElement.classList.toggle("dark", darkMode);
@@ -48,7 +49,7 @@ const App: React.FC = () => {
                             } />
                             <Route path="/verify-email" element={
                                 <RedirectIfAuthenticated>
-                                <VerifyEmailPage/>
+                                    <VerifyEmailPage/>
                                 </RedirectIfAuthenticated>} />
                             <Route path="/confirmed" element={<ConfirmedPage />} />
                             {/* 404 catch-all route */}
@@ -71,7 +72,18 @@ const App: React.FC = () => {
                             <span className="text-gray-900 dark:text-gray-100">Dark Mode</span>
                         </label>
 
-                        {localStorage.getItem("user-token") ? (
+                        {/* See Favorites button - only show if logged in */}
+                        {isLoggedIn && (
+                            <Link
+                                to="/menu"
+                                onClick={() => setSettingsOpen(false)}
+                                className="block bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 m-4 rounded text-center transition-colors duration-200"
+                            >
+                                ❤️ See Favorites
+                            </Link>
+                        )}
+
+                        {isLoggedIn ? (
                             <button
                                 onClick={() => {
                                     localStorage.removeItem("user-token");

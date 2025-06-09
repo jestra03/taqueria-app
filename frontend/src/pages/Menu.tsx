@@ -68,27 +68,65 @@ Drinks: Can Soda $2.00, Jarritos $3.50, Bottle Water $1.50, Horchata / Jamaica $
 const Menu: React.FC = () => {
     const t = useTranslation;
     const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+    const [userFavorites, setUserFavorites] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
+    const token = localStorage.getItem("user-token");
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
-        const apiUrl = import.meta.env.VITE_API_URL;
-        fetch(`${apiUrl}/menu/items`)
-            .then((res) => {
-                if (!res.ok) throw new Error("Network response was not ok");
-                return res.json();
-            })
-            .then((data: MenuItem[]) => {
-                setMenuItems(data);
-            })
-            .catch((err) => {
+        const fetchData = async () => {
+            try {
+                // Fetch menu items
+                const menuResponse = await fetch(`${apiUrl}/menu/items`);
+                if (!menuResponse.ok) throw new Error("Network response was not ok");
+                const menuData: MenuItem[] = await menuResponse.json();
+                setMenuItems(menuData);
+
+                // Fetch user favorites if logged in
+                if (token) {
+                    try {
+                        const favoritesResponse = await fetch(`${apiUrl}/menu/favorites`, {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        });
+                        if (favoritesResponse.ok) {
+                            const favoritesData = await favoritesResponse.json();
+                            setUserFavorites(favoritesData.favorites || []);
+                            console.log("✅ Loaded user favorites:", favoritesData.favorites);
+                        }
+                    } catch (favErr) {
+                        console.warn("Failed to fetch favorites:", favErr);
+                        // Don't fail the whole page if favorites fail
+                    }
+                }
+            } catch (err) {
                 console.error("Error fetching menu items:", err);
-                setLoading(err);
-            })
-            .finally(() => {
+                setError("Failed to load menu");
+            } finally {
                 setLoading(false);
-            });
-    }, []);
+            }
+        };
+
+        fetchData();
+    }, [apiUrl, token]);
+
+    // Handle favorite changes from FoodEntry components
+    const handleFavoriteChange = (itemId: number, isFavorited: boolean) => {
+        const itemIdStr = itemId.toString();
+        if (isFavorited) {
+            setUserFavorites(prev => [...prev, itemIdStr]);
+        } else {
+            setUserFavorites(prev => prev.filter(id => id !== itemIdStr));
+        }
+    };
+
+    // Get favorite menu items based on user's favorite IDs
+    const favoriteMenuItems = menuItems.filter(item =>
+        userFavorites.includes(item.id.toString())
+    );
 
     return (
         <div className="flex flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 pt-[var(--space-lg)]">
@@ -107,28 +145,49 @@ const Menu: React.FC = () => {
                     </div>
                 ) : (
                     <>
+                        {/* Favorites Section - Only show if user is logged in and has favorites */}
+                        {token && favoriteMenuItems.length > 0 && (
+                            <FoodCategory
+                                title="❤️ Your Favorites"
+                                subtitle="Your personally selected menu items"
+                                items={favoriteMenuItems}
+                                userFavorites={userFavorites}
+                                onFavoriteChange={handleFavoriteChange}
+                            />
+                        )}
+
                         <FoodCategory
                             title={t("menuCategoryCombinations")}
                             subtitle={t("menuCategoryCombinationsSub")}
                             items={menuItems.filter((i) => i.category === "Combinations")}
+                            userFavorites={userFavorites}
+                            onFavoriteChange={handleFavoriteChange}
                         />
                         <FoodCategory
                             title={t("menuCategoryTacos")}
                             subtitle={t("menuCategoryTacosSub")}
                             items={menuItems.filter((i) => i.category === "Tacos/Tortas")}
+                            userFavorites={userFavorites}
+                            onFavoriteChange={handleFavoriteChange}
                         />
                         <FoodCategory
                             title={t("menuCategoryBurritos")}
                             subtitle={t("menuCategoryBurritosSub")}
                             items={menuItems.filter((i) => i.category === "Burritos")}
+                            userFavorites={userFavorites}
+                            onFavoriteChange={handleFavoriteChange}
                         />
                         <FoodCategory
                             title={t("menuCategoryIndividual")}
                             items={menuItems.filter((i) => i.category === "Individual")}
+                            userFavorites={userFavorites}
+                            onFavoriteChange={handleFavoriteChange}
                         />
                         <FoodCategory
                             title={t("menuCategoryDrinks")}
                             items={menuItems.filter((i) => i.category === "Drinks")}
+                            userFavorites={userFavorites}
+                            onFavoriteChange={handleFavoriteChange}
                         />
 
                         <div className="mt-[var(--space-lg)]">
